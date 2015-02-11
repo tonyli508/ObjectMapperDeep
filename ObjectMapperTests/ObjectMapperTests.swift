@@ -304,20 +304,20 @@ class ObjectMapperTests: XCTestCase {
 		let JSONArray = Mapper().toJSONArray(taskArray)
 		println(JSONArray)
 		
-		let taskId1 = JSONArray[0]["taskId"] as Int
-		let percentage1 = JSONArray[0]["percentage"] as Double
+		let taskId1 = JSONArray[0]["taskId"] as! Int
+		let percentage1 = JSONArray[0]["percentage"] as! Double
 		
 		XCTAssertEqual(taskId1, task1.taskId!, "TaskId1 was not mapped correctly")
 		XCTAssertEqual(percentage1, task1.percentage!, "percentage1 was not mapped correctly")
 
-		let taskId2 = JSONArray[1]["taskId"] as Int
-		let percentage2 = JSONArray[1]["percentage"] as Double
+		let taskId2 = JSONArray[1]["taskId"] as! Int
+		let percentage2 = JSONArray[1]["percentage"] as! Double
 		
 		XCTAssertEqual(taskId2, task2.taskId!, "TaskId2 was not mapped correctly")
 		XCTAssertEqual(percentage2, task2.percentage!, "percentage2 was not mapped correctly")
 		
-		let taskId3 = JSONArray[2]["taskId"] as Int
-		let percentage3 = JSONArray[2]["percentage"] as Double
+		let taskId3 = JSONArray[2]["taskId"] as! Int
+		let percentage3 = JSONArray[2]["percentage"] as! Double
 		
 		XCTAssertEqual(taskId3, task3.taskId!, "TaskId3 was not mapped correctly")
 		XCTAssertEqual(percentage3, task3.percentage!, "percentage3 was not mapped correctly")
@@ -360,12 +360,12 @@ class ObjectMapperTests: XCTestCase {
         
         let json = Mapper<TestCollectionOfPrimitives>().toJSON(object)
         
-        XCTAssertTrue((json["dictStringString"] as [String:String]).count == 1)
-        XCTAssertTrue((json["dictStringBool"] as [String:Bool]).count == 1)
-        XCTAssertTrue((json["dictStringInt"] as [String:Int]).count == 1)
-        XCTAssertTrue((json["dictStringDouble"] as [String:Double]).count == 1)
-        XCTAssertTrue((json["dictStringFloat"] as [String:Float]).count == 1)
-        let dict:[String: String] = json["dictStringString"] as [String:String]
+        XCTAssertTrue((json["dictStringString"] as! [String:String]).count == 1)
+        XCTAssertTrue((json["dictStringBool"] as! [String:Bool]).count == 1)
+        XCTAssertTrue((json["dictStringInt"] as! [String:Int]).count == 1)
+        XCTAssertTrue((json["dictStringDouble"] as! [String:Double]).count == 1)
+        XCTAssertTrue((json["dictStringFloat"] as! [String:Float]).count == 1)
+        let dict:[String: String] = json["dictStringString"] as! [String:String]
         let value = dict["string"]! as String
         XCTAssertTrue(value == "string")
     }
