@@ -21,7 +21,7 @@ public enum MappingType {
 /**
 * A class used for holding mapping data
 */
-public final class Map {
+public class Map {
 	public let mappingType: MappingType
 
 	var JSONDictionary: [String : AnyObject] = [:]
@@ -79,6 +79,20 @@ public final class Map {
 	/// Returns whether the receiver is success or failure.
 	public var isValid: Bool {
 		return failedCount == 0
+	}
+}
+
+public class MapToJSON: Map {
+	
+	private init(JSONDictionary: [String : AnyObject]) {
+		super.init(mappingType: .ToJSON, JSONDictionary: JSONDictionary)
+	}
+}
+
+public class MapFromJSON: Map {
+	
+	private init(JSONDictionary: [String : AnyObject]) {
+		super.init(mappingType: .FromJSON, JSONDictionary: JSONDictionary)
 	}
 }
 
@@ -145,7 +159,7 @@ public final class Mapper<N: Mappable> {
 	* Usefull for those pesky objects that have crappy designated initializers like NSManagedObject
 	*/
 	public func map(JSONDictionary: [String : AnyObject], var toObject object: N) -> N {
-		let map = Map(mappingType: .FromJSON, JSONDictionary: JSONDictionary)
+		let map = MapFromJSON(JSONDictionary: JSONDictionary)
 		object.mapping(map)
 		return object
 	}
@@ -187,7 +201,7 @@ public final class Mapper<N: Mappable> {
 	* Maps a JSON dictionary to an object that conforms to Mappable
 	*/
 	public func map(JSONDictionary: [String : AnyObject]) -> N? {
-		let map = Map(mappingType: .FromJSON, JSONDictionary: JSONDictionary)
+		let map = MapFromJSON(JSONDictionary: JSONDictionary)
 		let object = N(map)
 		return object
 	}
@@ -257,7 +271,7 @@ public final class Mapper<N: Mappable> {
 	* Maps an object that conforms to Mappable to a JSON dictionary <String : AnyObject>
 	*/
 	public func toJSON(var object: N) -> [String : AnyObject] {
-		let map = Map(mappingType: .ToJSON, JSONDictionary: [:])
+		let map = MapToJSON(JSONDictionary: [:])
 		object.mapping(map)
 		return map.JSONDictionary
 	}

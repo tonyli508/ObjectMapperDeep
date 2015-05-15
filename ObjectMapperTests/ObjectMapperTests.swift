@@ -576,23 +576,43 @@ class User: Mappable {
 	}
 
 	func mapping(map: Map) {
-		username         <- map["username"]
-		identifier       <- map["identifier"]
-		photoCount       <- map["photoCount"]
-		age              <- map["age"]
-		weight           <- map["weight"]
-		float            <- map["float"]
-		drinker          <- map["drinker"]
-		smoker           <- map["smoker"]
-		sex              <- map["sex"]
-		arr              <- map["arr"]
-		arrOptional      <- map["arrOpt"]
-		dict             <- map["dict"]
-		dictOptional     <- map["dictOpt"]
-		friend           <- map["friend"]
-		friends          <- map["friends"]
-		friendDictionary <- map["friendDictionary"]
-		dictString		 <- map["dictString"]
+		if map.mappingType == .ToJSON {
+			username		 --> map["username"]
+			identifier       --> map["identifier"]
+			photoCount       --> map["photoCount"]
+			age              --> map["age"]
+			weight           --> map["weight"]
+			float            --> map["float"]
+			drinker          --> map["drinker"]
+			smoker           --> map["smoker"]
+			sex              --> map["sex"]
+			arr              --> map["arr"]
+			arrOptional      --> map["arrOpt"]
+			dict             --> map["dict"]
+			dictOptional     --> map["dictOpt"]
+			friend           --> map["friend"]
+			friends          --> map["friends"]
+			friendDictionary --> map["friendDictionary"]
+			dictString		 --> map["dictString"]
+		} else {
+			username         <- map["username"]
+			identifier       <- map["identifier"]
+			photoCount       <- map["photoCount"]
+			age              <- map["age"]
+			weight           <- map["weight"]
+			float            <- map["float"]
+			drinker          <- map["drinker"]
+			smoker           <- map["smoker"]
+			sex              <- map["sex"]
+			arr              <- map["arr"]
+			arrOptional      <- map["arrOpt"]
+			dict             <- map["dict"]
+			dictOptional     <- map["dictOpt"]
+			friend           <- map["friend"]
+			friends          <- map["friends"]
+			friendDictionary <- map["friendDictionary"]
+			dictString		 <- map["dictString"]
+		}
 	}
 }
 
@@ -629,7 +649,6 @@ class Subclass: Base {
 		sub <- map["sub"]
 	}
 }
-
 
 class GenericSubclass<T>: Base {
 	
