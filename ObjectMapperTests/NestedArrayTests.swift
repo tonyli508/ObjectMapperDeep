@@ -8,7 +8,6 @@
 
 import XCTest
 import ObjectMapper
-import Nimble
 
 
 class NestedArrayTests: XCTestCase {
@@ -112,22 +111,22 @@ class NestedArrayTests: XCTestCase {
 		
 		let employments: Employments! = mapper.map(jsonArray)
 		
-		expect(employments).notTo(beNil())
-		expect(employments.currentEmployerName).to(equal("Carma"))
-		expect(employments.currentJobTitle).to(equal("Developer"))
-		expect(employments.previousEmplyerName).to(equal("Linkedin"))
-		expect(employments.previousJobTitle).to(equal("Forkman"))
+		
+		XCTAssertNotNil(employments)
+		XCTAssertEqual(employments.currentEmployerName, "Carma")
+		XCTAssertEqual(employments.currentJobTitle, "Developer")
+		XCTAssertEqual(employments.previousEmplyerName, "Linkedin")
+		XCTAssertEqual(employments.previousJobTitle, "Forkman")
 		
 		let jsonMappedBack = mapper.toJSON(employments)
 		let remappedEmployments: Employments! = mapper.map(jsonMappedBack)
 		
-		expect(remappedEmployments).notTo(beNil())
+		XCTAssertNotNil(remappedEmployments)
 		
 		let employmentsValue = getValue(forKey: "currentEmployments", fromCollection: jsonMappedBack)!
 		
 		// the value should be array
-		expect(employmentsValue is [AnyObject]).to(beTruthy())
-		
+		XCTAssertTrue(employmentsValue is [AnyObject])
 	}
 	
 	func testMultipleArrayMapping() {
@@ -153,7 +152,7 @@ class NestedArrayTests: XCTestCase {
 		
 		let map: MapValue! = mapper.map(jsonArray)
 		
-		expect(Int(map.intValue!)!).to(equal(2))
+		XCTAssertEqual(Int(map.intValue!), 2)
 	}
 	
 	/// for now we don't support root array mapping 
@@ -179,7 +178,7 @@ class NestedArrayTests: XCTestCase {
 		
 		let map: MapValue! = mapper.map(jsonArray)
 		
-		expect(Int(map.intValue!)!).to(equal(2))
+		XCTAssertEqual(Int(map.intValue!), 2)
 	}
 	
 	// get value from dictionary or array
